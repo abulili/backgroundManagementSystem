@@ -1,10 +1,12 @@
 <template>
     <el-container class="app-wrapper">
-        <el-aside width="200px" class="sidebar-container">
-        <Menu />
+        <el-aside :width="asideWidth" class="sidebar-container">
+            <Menu />
         </el-aside>
         <el-container class="container">
-            <el-header>Header</el-header>
+            <el-header>
+                <Headers />
+            </el-header>
             <el-main>Main</el-main>
         </el-container>
     </el-container>
@@ -12,6 +14,9 @@
 
 <script setup>
 import Menu from './Menu'
+import Headers from './headers'
+import { ref } from 'vue'
+const asideWidth = ref('210px')
 </script>
 
 <style lang="scss" scoped>
@@ -20,6 +25,7 @@ import Menu from './Menu'
     width: 100%;
     height: 100%;
 }
+
 // 用到的变量来自style,一个是每次用的时候导入,另一个到webpack文件进行导入(vue.config.js)
 .container {
     width: calc(100% - $sideBarWidth);
@@ -38,4 +44,5 @@ import Menu from './Menu'
 
 ::v-deep .el-header {
     padding: 0;
-}</style>
+}
+</style>

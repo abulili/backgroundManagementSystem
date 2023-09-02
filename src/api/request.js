@@ -1,5 +1,7 @@
 import axios from 'axios'
 import { ElMessage } from 'element-plus'
+import { diffTokenTime } from '@/utils/auth'
+import store from '@/store'
 
 const service = axios.create({
     baseURL: process.env.VUE_APP_BASE_API,
@@ -8,6 +10,13 @@ const service = axios.create({
 
 service.interceptors.request.use(
     (config) => {
+        if (localStorage.getItem('token')) {
+            if (diffTokenTime()) {
+                store.dispatch('app/logout')
+                return Promise.reject(new Error('token 失效'))
+                // 通过vuex进行退出
+            }
+        }
         config.headers.Authorization = localStorage.getItem('token')
         return config
     },

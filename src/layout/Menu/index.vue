@@ -1,6 +1,7 @@
 <template>
-    <el-menu :active-text-color="$menuActiveText" :background-color="$menuBg" class="el-menu-vertical-demo"
-        :default-active="defaultActive" :text-color="$menuText" router unique-opened>
+    <el-menu :active-text-color="$menuActiveText" :background-color="'$menuBg'" class="el-menu-vertical-demo"
+        :default-active="defaultActive" text-color="#bfcbd9" router unique-opened>
+        <!-- 这里的颜色?不明白不理解 -->
         <!-- 添上路由 -->
         <el-sub-menu :index="item.id" v-for="(item, index) in menusList" :key="item.id">
             <template #title>
