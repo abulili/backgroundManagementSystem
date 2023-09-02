@@ -2,14 +2,21 @@
     <el-menu :active-text-color="$menuActiveText" :background-color="$menuBg" class="el-menu-vertical-demo"
         :default-active="defaultActive" :text-color="$menuText" router unique-opened>
         <!-- 添上路由 -->
-        <el-sub-menu :index="item.id" v-for="item in menusList" :key="item.id">
+        <el-sub-menu :index="item.id" v-for="(item, index) in menusList" :key="item.id">
             <template #title>
                 <el-icon>
-                    <location />
+                    <component :is="iconList[index]"></component>
                 </el-icon>
                 <span>{{ item.authName }}</span>
             </template>
-            <el-menu-item :index="'/' + it.path" v-for="it in item.children" :key="it.id" @click="savePath(it.path)">{{ it.authName }}</el-menu-item>
+            <el-menu-item :index="'/' + it.path" v-for="it in item.children" :key="it.id" @click="savePath(it.path)">
+                <template #title>
+                    <el-icon>
+                        <component :is="icon"></component>
+                    </el-icon>
+                    <span>{{ it.authName }}</span>
+                </template>
+            </el-menu-item>
         </el-sub-menu>
     </el-menu>
     <!-- 然后去上一级的index导入并使用 -->
@@ -19,7 +26,9 @@
 import { menuList } from '@/api/menu'
 import { ref } from 'vue'
 // import variables from '@/styles/variables.scss'
-// 数组
+const iconList = ref(['user', 'setting', 'shop', 'tickets', 'pie-chart'])
+const icon = ref('menu')
+
 const defaultActive = ref(sessionStorage.getItem('path') || '/users')
 const menusList = ref([])
 const initMenuList = async () => {
@@ -29,7 +38,7 @@ const initMenuList = async () => {
 initMenuList()
 
 const savePath = (path) => {
-  sessionStorage.setItem('path', `/${path}`)
+    sessionStorage.setItem('path', `/${path}`)
 }
 </script>
 
