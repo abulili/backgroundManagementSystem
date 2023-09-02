@@ -1,6 +1,6 @@
 <template>
     <el-menu :active-text-color="$menuActiveText" :background-color="'$menuBg'" class="el-menu-vertical-demo"
-        :default-active="defaultActive" text-color="#bfcbd9" router unique-opened>
+        :default-active="defaultActive" text-color="#bfcbd9" router unique-opened :collapse="!$store.getters.siderType">
         <!-- 这里的颜色?不明白不理解 -->
         <!-- 添上路由 -->
         <el-sub-menu :index="item.id" v-for="(item, index) in menusList" :key="item.id">
@@ -15,7 +15,7 @@
                     <el-icon>
                         <component :is="icon"></component>
                     </el-icon>
-                    <span>{{ it.authName }}</span>
+                    <span>{{ $t(`menus.${it.path}`) }}</span>
                 </template>
             </el-menu-item>
         </el-sub-menu>

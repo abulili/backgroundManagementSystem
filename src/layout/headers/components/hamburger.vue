@@ -1,10 +1,19 @@
 <template>
-    <div class="hamburger-container" id="hamburger">
-        <svg-icon icon="hamburger-opened"></svg-icon>
+    <div class="hamburger-container" id="hamburger" @click="togleClick">
+        <svg-icon :icon="icon"></svg-icon>
     </div>
 </template>
 
 <script setup>
+import { useStore } from 'vuex'
+import { computed } from 'vue'
+const store = useStore()
+const togleClick = () => {
+    store.commit('app/changeSiderType')
+}
+const icon = computed(() => {
+    return store.getters.siderType ? 'hamburger-opened' : 'hamburger-closed'
+})
 </script>
 
 <style lang="scss" scoped>

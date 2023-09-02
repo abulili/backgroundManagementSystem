@@ -14,8 +14,8 @@ const routes = [
     children: [
       {
         path: 'users',
-        name: 'users'
-        // component: () => import('@/views/users/index.vue')
+        name: 'users',
+        component: () => import('@/views/users/index.vue')
       },
       {
         path: 'categories',
